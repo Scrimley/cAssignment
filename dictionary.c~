@@ -1,7 +1,6 @@
 #define MAX_WORD_SIZE   40
 #define MAX_DESC_SIZE  200
-#include "avl_any.h"
-#include <string.h>
+
 /**
  * A dictionary is a collection of mappings from WORDs to DESCRIPTIONs
  * A WORD is a sequence of characters up to MAX_WORD_SIZE in length
@@ -9,35 +8,10 @@
  *   MAX_DESC_SIZE in length
  */
 
-struct entry
-{
-	
-	char[MAX_WORD_SIZE] word;
-    	char[MAX_DESC_SIZE] meaning;
-    	
-}; 
-
-bool smaller(entry *A, entry *B) {
-	
-	int ret = strcmp(A->word,B->word);
-	
-	if (ret > 0) {
-		
-		return false;
-		
-	} else {
-		
-		return true;
-		
-	}
-}
-
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
 void d_initialise() {
-	
-	avl_any *t = new_avl_any(smaller);
 	
 }
 

@@ -12,21 +12,21 @@
  *   MAX_DESC_SIZE in length
  */
 
-typedef struct entrystruct {
+struct entry {
 	
 	char word[MAX_WORD_SIZE];
     	char meaning[MAX_DESC_SIZE];
     	
-} entry;
+};
 
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
 void d_initialise() {
 
-	int smaller(entry *A, entry *B) {
-	
-		int ret = strcmp(A->word,B->word);
+	int smaller(any A, any B) {
+		
+		int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
 	
 		if (ret > 0) {
 		
@@ -38,8 +38,9 @@ void d_initialise() {
 		
 		}
 	}
-
-	avl_any *t = new_avl_any(smaller);
+	
+	avl_any *t;
+	t = new_avl_any(smaller);
 }
 
 /**

@@ -6,7 +6,7 @@ clean:
 d run:
 # Makes an executable program from the given test program d run.c. The exe-
 # cutable must be called d run.
-	gcc -Wall d_run.c dictionary.o -o "d run"
+	gcc -Wall d_run.c dictionary.o avl_any.o -o "d run"
 zip:
 # Creates a zipped, tar file containing the files: dictionary.h, dictionary.c,
 # d run.c, README, makefile, and any other source files that your implementation
@@ -22,5 +22,6 @@ all:
 # Builds the library and d run executable. Normally this will refer simply to the
 # d run target.
 	make clean
-	gcc -c dictionary.c
+	gcc -c avl_any.c
+	gcc -c dictionary.c avl_any.o
 	make d run

@@ -9,7 +9,7 @@
 #include <math.h>
 #include "avl_any.h"
 
-struct node
+struct nodef
 {
     char height;
     any item;

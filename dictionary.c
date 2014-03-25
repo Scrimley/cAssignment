@@ -2,6 +2,9 @@
 #define MAX_DESC_SIZE  200
 #include "avl_any.h"
 #include <string.h>
+
+#include <stdio.h>
+#include <stdlib.h>
 /**
  * A dictionary is a collection of mappings from WORDs to DESCRIPTIONs
  * A WORD is a sequence of characters up to MAX_WORD_SIZE in length
@@ -9,36 +12,34 @@
  *   MAX_DESC_SIZE in length
  */
 
-struct entry
-{
+typedef struct entrystruct {
 	
-	char[MAX_WORD_SIZE] word;
-    	char[MAX_DESC_SIZE] meaning;
+	char word[MAX_WORD_SIZE];
+    	char meaning[MAX_DESC_SIZE];
     	
-}; 
-
-bool smaller(entry *A, entry *B) {
-	
-	int ret = strcmp(A->word,B->word);
-	
-	if (ret > 0) {
-		
-		return false;
-		
-	} else {
-		
-		return true;
-		
-	}
-}
+} entry;
 
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
 void d_initialise() {
+
+	int smaller(entry *A, entry *B) {
 	
+		int ret = strcmp(A->word,B->word);
+	
+		if (ret > 0) {
+		
+			return 0;
+		
+		} else {
+		
+			return 1;
+		
+		}
+	}
+
 	avl_any *t = new_avl_any(smaller);
-	
 }
 
 /**
@@ -63,9 +64,25 @@ void d_initialise() {
  *              dictionary;
  *              false (0) if the file was not successfully imported.
  */
-int d_read_from_file(const char * filename) {
+int d_read_from_file(const char ** filename) {
  	
-	return 1;
+	char ch;
+   	FILE *fp;
+ 
+  	fp = fopen(*filename,"r"); // read mode
+ 
+  	if( fp == NULL ) {
+  	    perror("Error while opening the file.\n");
+      	    exit(EXIT_FAILURE);
+   	}
+ 
+  	printf("The contents of %s file are :\n", filename);
+ 
+   	while( ( ch = fgetc(fp) ) != EOF )
+      	    printf("%c",ch);
+ 
+   	fclose(fp);
+   	return 0;
 	
 }
 

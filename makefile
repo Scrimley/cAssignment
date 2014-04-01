@@ -3,10 +3,10 @@ clean:
 # cutables and .o files.
 	/bin/rm -f dictionary.o
 #/bin/rm -f d_run.c
-d run:
+d_run:
 # Makes an executable program from the given test program d run.c. The exe-
 # cutable must be called d run.
-	gcc -Wall d_run.c dictionary.o avl_any.o -o "d run"
+	gcc -Wall d_run.c dictionary.o avl_any.o -o d_run
 zip:
 # Creates a zipped, tar file containing the files: dictionary.h, dictionary.c,
 # d run.c, README, makefile, and any other source files that your implementation
@@ -24,4 +24,4 @@ all:
 	make clean
 	gcc -c avl_any.c
 	gcc -c dictionary.c avl_any.o
-	make d run
+	make d_run

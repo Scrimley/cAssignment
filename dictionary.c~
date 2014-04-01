@@ -26,7 +26,7 @@ void d_initialise() {
 
 	int smaller(any A, any B) {
 		
-		int ret = strcmp((struct entry*)A->word, (struct entry*)B->word);
+		int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
 	
 		if (ret > 0) {
 		
@@ -38,8 +38,9 @@ void d_initialise() {
 		
 		}
 	}
-
-	avl_any *t = new_avl_any(smaller);
+	
+	avl_any *t;
+	t = new_avl_any(smaller);
 }
 
 /**

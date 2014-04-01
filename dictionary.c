@@ -70,7 +70,7 @@ int d_read_from_file(const char ** filename) {
 	char ch;
    	FILE *fp;
  
-  	fp = fopen(*filename,"r"); // read mode
+  	fp = fopen(filename,"r"); // read mode
  
   	if( fp == NULL ) {
   	    perror("Error while opening the file.\n");

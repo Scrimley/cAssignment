@@ -23,5 +23,5 @@ all:
 # d run target.
 	make clean
 	gcc -c avl_any.c
-	gcc -c dictionary.c avl_any.o
+	gcc -c dictionary.c
 	make d_run

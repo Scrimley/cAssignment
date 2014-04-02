@@ -1,0 +1,6 @@
+make clean
+make[1]: Entering directory `/home8/P12197868/Documents/ctec2901/assignment'
+/bin/rm -f dictionary.o
+make[1]: Leaving directory `/home8/P12197868/Documents/ctec2901/assignment'
+gcc -c avl_any.c
+gcc -c dictionary.c avl_any.o

@@ -2,7 +2,6 @@
 #define MAX_DESC_SIZE  200
 #include "avl_any.h"
 #include <string.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 /**
@@ -15,32 +14,49 @@
 struct entry {
 	
 	char word[MAX_WORD_SIZE];
-    	char meaning[MAX_DESC_SIZE];
+   	char meaning[MAX_DESC_SIZE];
     	
 };
+
+avl_any *t;
+
+int smaller(any A, any B) {
+		
+	int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
+	
+	if (ret > 0) {
+		
+		return 0;
+		
+	} else {
+		
+		return 1;
+		
+	}
+}
 
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
 void d_initialise() {
 
-	int smaller(any A, any B) {
-		
-		int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
-	
-		if (ret > 0) {
-		
-			return 0;
-		
-		} else {
-		
-			return 1;
-		
-		}
-	}
-	
-	avl_any *t;
 	t = new_avl_any(smaller);
+}
+
+//modified from http://stackoverflow.com/questions/10279718/append-char-to-string-in-c
+char * append(char * string, char character)
+{
+    char * result = NULL;
+    asprintf(&result, "%s%s", string, character);
+    return result;
+}
+
+void d_insert(struct entry* input) {
+    avl_any_insert(t, input);
+}
+
+void inc(int *x) {
+	*x = (*x + 1) % 2;
 }
 
 /**
@@ -65,28 +81,52 @@ void d_initialise() {
  *              dictionary;
  *              false (0) if the file was not successfully imported.
  */
+
 int d_read_from_file(const char ** filename) {
  	
 	char ch;
+	char wordbuff[MAX_WORD_SIZE];
+	char meanbuff[MAX_DESC_SIZE];
+	int control = 0;
    	FILE *fp;
+	struct entry input;
  
-  	fp = fopen(filename,"r"); // read mode
+  	fp = fopen(*filename,"r"); // read mode
  
   	if( fp == NULL ) {
   	    perror("Error while opening the file.\n");
-      	    exit(EXIT_FAILURE);
+      	return 0;
    	}
  
   	printf("The contents of %s file are :\n", filename);
  
-   	while( ( ch = fgetc(fp) ) != EOF )
-      	    printf("%c",ch);
- 
+   	while( ( ch = fgetc(fp) ) != EOF ) {
+      	printf("%c",ch);
+	    if (ch == ' ') {
+			strcpy(input.word, wordbuff);
+			strcpy(wordbuff, "");
+			inc(&control);
+	    }
+	    else if (ch == '\n') {
+			strcpy(input.meaning, meanbuff);
+			d_insert(&input);
+			strcpy(meanbuff, "");
+			inc(&control);
+	    }
+	    else if (ch != '.') {
+			if (control = 0) {
+	   			append(wordbuff, ch);
+			}
+			
+			else if (control = 1) {
+	    		append(meanbuff, ch);
+			}
+	    }
+	}
    	fclose(fp);
-   	return 0;
+   	return 1;
 	
 }
-
 
 /**
  * d_lookup:    Looks up a word in the dictionary and returns the
@@ -102,7 +142,11 @@ int d_read_from_file(const char ** filename) {
  *              false (0) if the word was not found in the dictionary.
  */
 int d_lookup(const char * word, char * meaning) {
- 	
-	return 1;
-	 
+
+	if(avl_any_contains(t, word)) {
+		return 0;
+	}
+	else {
+		return 1;
+	}
 }

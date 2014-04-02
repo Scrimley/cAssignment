@@ -3,7 +3,7 @@ clean:
 # cutables and .o files.
 	/bin/rm -f dictionary.o
 #/bin/rm -f d_run.c
-d run:
+d_run:
 # Makes an executable program from the given test program d run.c. The exe-
 # cutable must be called d run.
 	gcc -Wall d_run.c dictionary.o avl_any.o -o d_run

@@ -12,7 +12,7 @@ zip:
 # d run.c, README, makefile, and any other source files that your implementation
 # requires. The zipped tar file must be called p12345678.tar.gz where the “p-
 # number” (p...) is your actual p-number.
-	tar -cvzf p12197868.tar.gz dictionary.h dictionary.c d_run.c README makefile
+	tar -cvzf p12197868.tar.gz avl_any.h avl_any.c any.h dictionary.h dictionary.c d_run.c README makefile
 # NB You can easily check if your zip target is working by (a) running make zip;
 # (b) copying the tar.gz file to /tmp; (c) changing directory to /tmp; (d) decom-
 # pressing the archive (tar xvzf ...); and finally, (e) building the application

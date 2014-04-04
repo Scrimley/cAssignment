@@ -1,9 +1,9 @@
 #define MAX_WORD_SIZE   40
 #define MAX_DESC_SIZE  200
-#include "avl_any.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "dictionary.h"
 /**
  * A dictionary is a collection of mappings from WORDs to DESCRIPTIONs
  * A WORD is a sequence of characters up to MAX_WORD_SIZE in length
@@ -11,36 +11,11 @@
  *   MAX_DESC_SIZE in length
  */
 
-struct entry {
-	
-	char word[MAX_WORD_SIZE];
-   	char meaning[MAX_DESC_SIZE];
-    	
-};
-
-avl_any *t;
-
-int smaller(any A, any B) {
-		
-	int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
-	
-	if (ret > 0) {
-		
-		return 0;
-		
-	} else {
-		
-		return 1;
-		
-	}
-}
-
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
 void d_initialise() {
 
-	t = new_avl_any(smaller);
 }
 
 //modified from http://stackoverflow.com/questions/10279718/append-char-to-string-in-c User: Lay González
@@ -49,10 +24,6 @@ char * append(char * string, char character)
     char * result = NULL;
     asprintf(&result, "%s%s", string, character);
     return result;
-}
-
-void d_insert(struct entry* input) {
-    avl_any_insert(t, input);
 }
 
 void inc(int *x) {
@@ -111,7 +82,6 @@ int d_read_from_file(const char ** filename) {
 	    }
 	    else if (ch == '\n') {
 			strcpy(input.meaning, meanbuff);
-			d_insert(&input);
 			strcpy(meanbuff, "");
 			inc(&control);
 	    }

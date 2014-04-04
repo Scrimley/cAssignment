@@ -1,5 +1,6 @@
 #define MAX_WORD_SIZE   40
 #define MAX_DESC_SIZE  200
+#include "avl_any.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,11 +18,29 @@ struct entry {
     	
 };
 
+avl_any *t;
+
+int smaller(any A, any B) {
+		
+	int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
+	
+	if (ret > 0) {
+		
+		return 0;
+		
+	} else {
+		
+		return 1;
+		
+	}
+}
+
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
 void d_initialise() {
 
+	t = new_avl_any(smaller);
 }
 
 //modified from http://stackoverflow.com/questions/10279718/append-char-to-string-in-c User: Lay González
@@ -30,6 +49,10 @@ char * append(char * string, char character)
     char * result = NULL;
     asprintf(&result, "%s%s", string, character);
     return result;
+}
+
+void d_insert(struct entry* input) {
+    avl_any_insert(t, input);
 }
 
 void inc(int *x) {
@@ -60,7 +83,7 @@ void inc(int *x) {
  */
 
 int d_read_from_file(const char ** filename) {
-
+ 	
 	// modified from http://www.programmingsimplified.com/c-program-read-file
 
 	char ch;
@@ -70,7 +93,7 @@ int d_read_from_file(const char ** filename) {
    	FILE *fp;
 	struct entry input;
  
-  	fp = fopen(filename,"r"); // read mode
+  	fp = fopen(*filename,"r"); // read mode
  
   	if( fp == NULL ) {
   	    perror("Error while opening the file.\n");
@@ -88,6 +111,7 @@ int d_read_from_file(const char ** filename) {
 	    }
 	    else if (ch == '\n') {
 			strcpy(input.meaning, meanbuff);
+			d_insert(&input);
 			strcpy(meanbuff, "");
 			inc(&control);
 	    }
@@ -126,10 +150,12 @@ int d_lookup(const char * word, char * meaning) {
 	strcpy(input.word, word);
 	strcpy(input.meaning, meaning);
 
-	struct entry output;
+	struct entry* output;
 
-	if(strcmp(input.word,output.word)) {
-		strcpy(meaning, output.meaning);
+	output = avl_search(t, input);
+
+	if(strcmp(input.word,output->word)) {
+		strcpy(meaning, output->meaning);
 		return 1;
 	}
 	return 0;

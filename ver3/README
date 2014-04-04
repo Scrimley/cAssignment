@@ -1,0 +1,17 @@
+Author and Purpose
+The author of the library and an outline of the application’s functionality. (Only
+include your p-number as author if you wish to maintain anonymity for marking
+purposes.)
+A Manifest
+A list of all the files included in the distribution and the purpose of each one.
+Installation Instructions
+Where to place the various files and how to install the application.
+Usage Instructions
+Notes on how to run the application once it has been built.
+Known Bugs
+A list of known bugs with the software in its current state.
+Implementation Notes
+This is a very specific category for this assignement: you should include a short
+paragraph in which you describe briefly and justify your chosen implementation
+strategy for the dictionary.
+

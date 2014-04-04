@@ -10,6 +10,13 @@
  *   MAX_DESC_SIZE in length
  */
 
+struct entry {
+	
+	char word[MAX_WORD_SIZE];
+   	char meaning[MAX_DESC_SIZE];
+    	
+};
+
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
@@ -53,7 +60,7 @@ void inc(int *x) {
  */
 
 int d_read_from_file(const char ** filename) {
- 	
+
 	// modified from http://www.programmingsimplified.com/c-program-read-file
 
 	char ch;
@@ -63,7 +70,7 @@ int d_read_from_file(const char ** filename) {
    	FILE *fp;
 	struct entry input;
  
-  	fp = fopen(*filename,"r"); // read mode
+  	fp = fopen(filename,"r"); // read mode
  
   	if( fp == NULL ) {
   	    perror("Error while opening the file.\n");
@@ -119,12 +126,10 @@ int d_lookup(const char * word, char * meaning) {
 	strcpy(input.word, word);
 	strcpy(input.meaning, meaning);
 
-	struct entry* output;
+	struct entry output;
 
-	output = avl_search(t, input);
-
-	if(strcmp(input.word,output->word)) {
-		strcpy(meaning, output->meaning);
+	if(strcmp(input.word,output.word)) {
+		strcpy(meaning, output.meaning);
 		return 1;
 	}
 	return 0;

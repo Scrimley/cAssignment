@@ -43,7 +43,7 @@ void d_initialise() {
 	t = new_avl_any(smaller);
 }
 
-//modified from http://stackoverflow.com/questions/10279718/append-char-to-string-in-c
+//modified from http://stackoverflow.com/questions/10279718/append-char-to-string-in-c User: Lay González
 char * append(char * string, char character)
 {
     char * result = NULL;
@@ -84,6 +84,8 @@ void inc(int *x) {
 
 int d_read_from_file(const char ** filename) {
  	
+	// modified from http://www.programmingsimplified.com/c-program-read-file
+
 	char ch;
 	char wordbuff[MAX_WORD_SIZE];
 	char meanbuff[MAX_DESC_SIZE];
@@ -119,7 +121,7 @@ int d_read_from_file(const char ** filename) {
 			}
 			
 			else if (control = 1) {
-	    		append(meanbuff, ch);
+	    			append(meanbuff, ch);
 			}
 	    }
 	}
@@ -147,8 +149,13 @@ int d_lookup(const char * word, char * meaning) {
 	
 	strcpy(input.word, word);
 	strcpy(input.meaning, meaning);
-	
-	if(avl_any_contains(t, input.word)) {
+
+	struct entry output;
+
+	output = avl_search(t, input);
+
+	if(strcmp(input->word,output->word)) {
+		strcpy(input.meaning, output.meaning);
 		return 0;
 	}
 	else {

@@ -9,7 +9,7 @@
 #include <math.h>
 #include "avl_any.h"
 
-struct nodef
+struct node
 {
     char height;
     any item;
@@ -307,4 +307,25 @@ void avl_any_release(avl_any *t)
 {
     assert(t!=NULL);
     free(t);
+}
+
+struct node * avl_search(avl_any *t, any x)
+{
+	return search(t, x, t->root);
+}
+
+struct node * search(avl_any *t, any search_item, struct node * p)
+{
+	struct node *q;
+	q = p;
+	assert(p!=NULL);
+	if (LT(search_item,p->item)) {                       // searching left sub-tree
+       	search(t, search_item, p->left);
+    }   
+    else if (LT(p->item, search_item)) {                // searching right sub-tree
+        search(t, search_item, p->right);
+    }
+	else {
+		return q;
+	}
 }

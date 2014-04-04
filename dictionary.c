@@ -143,7 +143,12 @@ int d_read_from_file(const char ** filename) {
  */
 int d_lookup(const char * word, char * meaning) {
 
-	if(avl_any_contains(t, word)) {
+	struct entry input;
+	
+	strcpy(input.word, word);
+	strcpy(input.meaning, meaning);
+	
+	if(avl_any_contains(t, input.word)) {
 		return 0;
 	}
 	else {

@@ -22,7 +22,6 @@ void avl_any_preorder_print(avl_any *t, void (* item_print)(any item));
 void avl_any_inorder_print(avl_any *t, void (* item_print)(any item));
 void avl_any_postorder_print(avl_any *t, void (* item_print)(any item));
 void avl_any_simple_print(avl_any *t, void (* item_print)(any item));
-struct node * avl_search(avl_any *t, any x);
 
 void avl_any_release(avl_any *t);
 #endif

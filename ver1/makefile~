@@ -1,10 +1,3 @@
-all:
-# Builds the library and d run executable. Normally this will refer simply to the
-# d run target.
-	make clean
-	gcc -c avl_any.c
-	gcc -c dictionary.c
-	make d_run
 clean:
 # Remove all derived files from the directory – i.e. compiler output such as exe-
 # cutables and .o files.
@@ -25,3 +18,10 @@ zip:
 # pressing the archive (tar xvzf ...); and finally, (e) building the application
 # (make all). If the program builds and then runs successfully then you have
 # created a portable archive of your application.
+all:
+# Builds the library and d run executable. Normally this will refer simply to the
+# d run target.
+	make clean
+	gcc -c avl_any.c
+	gcc -c dictionary.c
+	make d_run

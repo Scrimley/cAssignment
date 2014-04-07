@@ -152,11 +152,13 @@ int d_lookup(const char * word, char * meaning) {
 
 	struct entry* output;
 
-	output = avl_search(t, input);
+	output = (struct entry*)avl_search(t, input.word);
+	printf("%s",output->meaning);
 
 	if(strcmp(input.word,output->word)) {
 		strcpy(meaning, output->meaning);
 		return 1;
 	}
+
 	return 0;
 }

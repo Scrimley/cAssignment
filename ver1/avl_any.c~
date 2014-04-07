@@ -314,7 +314,6 @@ struct node * search(avl_any *t, any search_item, struct node * p)
 {
 	struct node *q;
 	assert(p!=NULL);
-	q = p;
 	if (LT(search_item,p->item)) {                       // searching left sub-tree
 		search(t, search_item, p->left);
     }   
@@ -322,6 +321,7 @@ struct node * search(avl_any *t, any search_item, struct node * p)
         search(t, search_item, p->right);
     }
 	else {
+		q = p;
 		return q;
 	}
 }

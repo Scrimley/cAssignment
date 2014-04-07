@@ -4,6 +4,7 @@
 #define MAX_WORD_SIZE   40
 #define MAX_DESC_SIZE  200
 #include <string.h>
+#include "clist.h"
 
 /**
  * A dictionary is a collection of mappings from WORDs to DESCRIPTIONs

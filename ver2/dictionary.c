@@ -1,8 +1,10 @@
 #define MAX_WORD_SIZE   40
 #define MAX_DESC_SIZE  200
+#include "clist.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "dictionary.h"
 /**
  * A dictionary is a collection of mappings from WORDs to DESCRIPTIONs
  * A WORD is a sequence of characters up to MAX_WORD_SIZE in length
@@ -17,11 +19,29 @@ struct entry {
     	
 };
 
+clist *c;
+
+int smaller(any A, any B) {
+		
+	int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
+	
+	if (ret > 0) {
+		
+		return 0;
+		
+	} else {
+		
+		return 1;
+		
+	}
+}
+
 /**
  * d_initialise: initialise the dictionary so that it contains no entries
  */
 void d_initialise() {
 
+	c = new_clist();
 }
 
 //modified from http://stackoverflow.com/questions/10279718/append-char-to-string-in-c User: Lay González
@@ -30,6 +50,10 @@ char * append(char * string, char character)
     char * result = NULL;
     asprintf(&result, "%s%s", string, character);
     return result;
+}
+
+void d_insert(struct entry* input) {
+    clist_ins_after(c, input);
 }
 
 void inc(int *x) {
@@ -59,8 +83,8 @@ void inc(int *x) {
  *              false (0) if the file was not successfully imported.
  */
 
-int d_read_from_file(const char ** filename) {
-
+int d_read_from_file(const char * filename) {
+ 	
 	// modified from http://www.programmingsimplified.com/c-program-read-file
 
 	char ch;
@@ -77,17 +101,18 @@ int d_read_from_file(const char ** filename) {
       	return 0;
    	}
  
-  	printf("The contents of %s file are :\n", filename);
+  	printf("The contents of %s file are :\n", *filename);
  
    	while( ( ch = fgetc(fp) ) != EOF ) {
       	printf("%c",ch);
-	    if (ch == ' ' && control == 0) {
+	    if (ch == ' ') {
 			strcpy(input.word, wordbuff);
 			strcpy(wordbuff, "");
 			inc(&control);
 	    }
 	    else if (ch == '\n') {
 			strcpy(input.meaning, meanbuff);
+			d_insert(&input);
 			strcpy(meanbuff, "");
 			inc(&control);
 	    }
@@ -129,8 +154,10 @@ int d_lookup(const char * word, char * meaning) {
 	struct entry output;
 
 	if(strcmp(input.word,output.word)) {
-		strcpy(meaning, output.meaning);
+		strcpy(input.meaning, output.meaning);
+		return 0;
+	}
+	else {
 		return 1;
 	}
-	return 0;
 }

@@ -82,7 +82,7 @@ void inc(int *x) {
  *              false (0) if the file was not successfully imported.
  */
 
-int d_read_from_file(const char ** filename) {
+int d_read_from_file(const char * filename) {
  	
 	// modified from http://www.programmingsimplified.com/c-program-read-file
 
@@ -93,18 +93,18 @@ int d_read_from_file(const char ** filename) {
    	FILE *fp;
 	struct entry input;
  
-  	fp = fopen(*filename,"r"); // read mode
+  	fp = fopen(filename,"r"); // read mode
  
   	if( fp == NULL ) {
   	    perror("Error while opening the file.\n");
       	return 0;
    	}
  
-  	printf("The contents of %s file are :\n", filename);
+  	printf("The contents of %s file are :\n", *filename);
  
    	while( ( ch = fgetc(fp) ) != EOF ) {
       	printf("%c",ch);
-	    if (ch == ' ' && control == 0) {
+	    if (ch == ' ') {
 			strcpy(input.word, wordbuff);
 			strcpy(wordbuff, "");
 			inc(&control);
@@ -150,13 +150,15 @@ int d_lookup(const char * word, char * meaning) {
 	strcpy(input.word, word);
 	strcpy(input.meaning, meaning);
 
-	struct entry* output;
+	struct entry output;
 
 	output = avl_search(t, input);
 
-	if(strcmp(input.word,output->word)) {
-		strcpy(meaning, output->meaning);
+	if(strcmp(input->word,output->word)) {
+		strcpy(input.meaning, output.meaning);
+		return 0;
+	}
+	else {
 		return 1;
 	}
-	return 0;
 }

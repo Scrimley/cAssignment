@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "dictionary.h"
 /**
  * A dictionary is a collection of mappings from WORDs to DESCRIPTIONs
  * A WORD is a sequence of characters up to MAX_WORD_SIZE in length
@@ -82,7 +83,7 @@ void inc(int *x) {
  *              false (0) if the file was not successfully imported.
  */
 
-int d_read_from_file(const char ** filename) {
+int d_read_from_file(const char * filename) {
  	
 	// modified from http://www.programmingsimplified.com/c-program-read-file
 
@@ -93,14 +94,14 @@ int d_read_from_file(const char ** filename) {
    	FILE *fp;
 	struct entry input;
  
-  	fp = fopen(*filename,"r"); // read mode
+  	fp = fopen(filename,"r"); // read mode
  
   	if( fp == NULL ) {
   	    perror("Error while opening the file.\n");
       	return 0;
    	}
  
-  	printf("The contents of %s file are :\n", filename);
+  	printf("The contents of %s file are :\n", *filename);
  
    	while( ( ch = fgetc(fp) ) != EOF ) {
       	printf("%c",ch);

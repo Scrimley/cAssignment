@@ -82,7 +82,7 @@ void inc(int *x) {
  *              false (0) if the file was not successfully imported.
  */
 
-int d_read_from_file(const char ** filename) {
+int d_read_from_file(const char * filename) {
  	
 	// modified from http://www.programmingsimplified.com/c-program-read-file
 
@@ -152,7 +152,7 @@ int d_lookup(const char * word, char * meaning) {
 
 	struct entry* output;
 
-	output = (struct entry*)avl_search(t, input);
+	output = (struct entry*)avl_search(t, input.word);
 	printf("%s",output->meaning);
 
 	if(strcmp(input.word,output->word)) {

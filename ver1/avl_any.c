@@ -322,7 +322,7 @@ struct node * search(avl_any *t, any search_item, struct node * p)
         search(t, search_item, p->right);
     }
 	else {
-		return q;
+		return q->item;
 	}
 }
 

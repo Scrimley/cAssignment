@@ -24,7 +24,7 @@ int smaller(any A, any B) {
 		
 	int ret = strcmp(((struct entry*)A)->word, ((struct entry*)B)->word);
 	
-	if (ret > 0) {
+	if (ret < 0) {
 		
 		return 0;
 		
@@ -103,7 +103,7 @@ int d_read_from_file(const char * filename) {
   	printf("The contents of %s file are :\n", filename);
  
    	while( ( ch = fgetc(fp) ) != EOF ) {
-      	printf("%c",ch);
+		printf("%c",ch);
 	    if (ch == ' ' && control == 0) {
 			strcpy(input.word, wordbuff);
 			strcpy(wordbuff, "");
@@ -145,20 +145,20 @@ int d_read_from_file(const char * filename) {
  */
 int d_lookup(const char * word, char * meaning) {
 
-	struct entry input;
+	struct entry* input;
 	
-	strcpy(input.word, word);
-	strcpy(input.meaning, meaning);
+	strcpy(input->word, word);
+	strcpy(input->meaning, meaning);
 
 	struct entry* output;
 
-	output = (struct entry*)avl_search(t, input.word);
+	output = (struct entry*)avl_search(t, input);
 	printf("%s",output->meaning);
-
-	if(strcmp(input.word,output->word)) {
+	
+	if((strcmp(input->word,output->word))==0) {
 		strcpy(meaning, output->meaning);
 		return 1;
 	}
-
+	
 	return 0;
 }
